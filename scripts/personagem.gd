@@ -62,23 +62,31 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("agachar"):
 		if not esta_agachado:
 			if not camera_primeira_ps:
-				esta_agachado = true
 				velocidade = 3.0
+				esta_agachado = true
 				animation.play("agachar")
+			else:
+				velocidade = 3.0
+				esta_agachado = true
+				animation.play("agachar_primeira_ps")
 		else:
 			if not camera_primeira_ps:
 				velocidade = 5.0
 				esta_agachado = false
 				animation.play("levantar")
+			else:
+				velocidade = 5.0
+				esta_agachado = false
+				animation.play("agachar_primeira_ps", -1.0, -1.0, true)
 	
 	if event.is_action_pressed("troca_a_camera"):
 		if not esta_agachado:
 			if not camera_primeira_ps:
-				animation.play("troca_camera_levantado")
+				animation.play("trocar_camera_levantado")
 				camera_primeira_ps = true
 				mira_label.visible = true
 			else:
-				animation.play("troca_camera_levantado", -1.0, -1.0, true)
+				animation.play("trocar_camera_levantado", -1.0, -1.0, true)
 				camera_primeira_ps = false
 				mira_label.visible = false
 		else:
