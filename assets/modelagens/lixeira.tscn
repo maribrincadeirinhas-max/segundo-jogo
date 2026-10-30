@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvxktjmjsmj15"]
+
+[ext_resource type="PackedScene" uid="uid://bfebh4f0t5xtp" path="res://assets/modelagens/lixeira.blend" id="1_i70ex"]
+
+[node name="lixeira" instance=ExtResource("1_i70ex")]
+
+[node name="Camera" parent="." index="0"]
+visible = false
+
+[node name="Circle" parent="." index="1"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Light" parent="." index="2"]
+visible = false
