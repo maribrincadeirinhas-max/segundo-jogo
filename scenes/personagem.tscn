@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://hbsmy5au8vt1"]
+[gd_scene load_steps=14 format=3 uid="uid://hbsmy5au8vt1"]
 
 [ext_resource type="PackedScene" uid="uid://bydrhhe1rme45" path="res://assets/modelagens/F7.tscn" id="1_t2tgb"]
 [ext_resource type="Script" uid="uid://qm848wcdvtdu" path="res://scripts/personagem.gd" id="1_wtnic"]
@@ -8,6 +8,9 @@ height = 2.5229492
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wtnic"]
 size = Vector3(3.2072754, 1.6495972, 3.2617188)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bss74"]
+size = Vector3(1.3190308, 0.9713135, 1.7022705)
 
 [sub_resource type="Animation" id="Animation_wtnic"]
 length = 0.001
@@ -399,8 +402,8 @@ _data = {
 &"trocar_camera_quando_agachado": SubResource("Animation_jc3tx")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bss74"]
-size = Vector3(1.3190308, 0.9713135, 1.7022705)
+[sub_resource type="BoxShape3D" id="BoxShape3D_en60c"]
+size = Vector3(0.5, 0.4, 0.5)
 
 [node name="perso" type="CharacterBody3D" groups=["jogador"]]
 collision_layer = 2
@@ -415,7 +418,7 @@ transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0,
 [node name="cabeca" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="cabeca"]
-transform = Transform3D(-4.371139e-08, 0.4430712, -0.8964864, 0, 0.8964864, 0.4430712, 1, 1.9367256e-08, -3.9186666e-08, -1.6661996, 1.2540464, 0)
+transform = Transform3D(-4.371139e-08, 0.44307116, -0.89648634, 0, 0.89648634, 0.44307116, 1, 1.9367254e-08, -3.9186663e-08, -1.6661996, 1.2540464, 0)
 
 [node name="cabecaCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.31586483, 0, 0, 0, 0.31586483, 0, 0, 0, 0.31586483, 0, 0.82750684, 0)
@@ -425,14 +428,14 @@ shape = SubResource("CylinderShape3D_wtnic")
 transform = Transform3D(0.31586483, 0, 0, 0, 0.31586483, 0, 0, 0, 0.31586483, 0.08347747, 0.67860657, 0)
 shape = SubResource("BoxShape3D_wtnic")
 
+[node name="corpo" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.061553955, -0.09820557, 0.007385254)
+shape = SubResource("BoxShape3D_bss74")
+
 [node name="animation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_en60c")
 }
-
-[node name="corpo" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.061553955, -0.09820557, 0.007385254)
-shape = SubResource("BoxShape3D_bss74")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -452,5 +455,10 @@ grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 64
 text = "."
+
+[node name="batendo_no_teto" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09008834, 0.8108165, 0)
+shape = SubResource("BoxShape3D_en60c")
+target_position = Vector3(0, 0, 0)
 
 [editable path="F-7E3"]

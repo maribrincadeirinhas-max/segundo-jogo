@@ -17,6 +17,9 @@ var energia_atual := 100.0
 @onready var animation: AnimationPlayer = $animation
 var esta_agachado : bool = false
 var camera_primeira_ps = false
+@onready var batendo_no_teto: ShapeCast3D = $batendo_no_teto
+var nao_pode_levantar = false
+
 var life = 1
 @onready var mira_label: Label = $CanvasLayer/mira
 
@@ -59,7 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif energia_atual > 0.0:
 			luz_peito.visible = true
 	
-	if event.is_action_pressed("agachar"):
+	if event.is_action_pressed("agachar") and not nao_pode_levantar:
 		if not esta_agachado:
 			if not camera_primeira_ps:
 				velocidade = 3.0
@@ -105,7 +108,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	else:
 		velocity.y = 0.0
-
+	
 	# Movimento com WASD e setas
 	var input_dir := Input.get_vector(
 		"esquerda",
@@ -113,26 +116,31 @@ func _physics_process(delta: float) -> void:
 		"cima",
 		"baixo"
 	)
-
+	
 	# Direção baseada na câmera
 	var frente := -camera.global_transform.basis.z
 	var direita := camera.global_transform.basis.x
-
+	
 	frente.y = 0.0
 	direita.y = 0.0
-
+	
 	frente = frente.normalized()
 	direita = direita.normalized()
-
+	
 	var direcao := direita * input_dir.x - frente * input_dir.y
 	direcao = direcao.normalized()
-
+	
 	if direcao != Vector3.ZERO:
 		velocity.x = direcao.x * velocidade
 		velocity.z = direcao.z * velocidade
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, velocidade)
 		velocity.z = move_toward(velocity.z, 0.0, velocidade)
+	
+	if batendo_no_teto.is_colliding():
+		nao_pode_levantar = true
+	else:
+		nao_pode_levantar = false
 
 	move_and_slide()
 
